@@ -9,10 +9,17 @@ public class PlayerHealth : MonoBehaviour,IDamageable
     private float currentHealth;
     [SerializeField] Transform respawnPoint;
     private PlayerMovement _movement;
+    private Animator animator;
+    private bool isDead = false;
+    [SerializeField] private BoxCollider2D normalCollider;
+    [SerializeField] private BoxCollider2D deathCollider;
     private void Awake()
     {
         currentHealth = maxHealth;
         _movement = GetComponent<PlayerMovement>();
+        animator = GetComponent<Animator>();
+        normalCollider.enabled = true;
+        deathCollider.enabled = false;
     }
 
     private void Update()
@@ -26,6 +33,8 @@ public class PlayerHealth : MonoBehaviour,IDamageable
         {
             TakeDamage(20);
         }
+
+        
     }
 
 
@@ -38,6 +47,9 @@ public class PlayerHealth : MonoBehaviour,IDamageable
     void Die()
     {
         //play death animation
+        normalCollider.enabled = false;
+        deathCollider.enabled = true;
+        animator.SetBool("Death",true);
         //play death sfx
         _movement.enabled = false;
         Invoke(nameof(Respawn),2f);
@@ -48,6 +60,9 @@ public class PlayerHealth : MonoBehaviour,IDamageable
 
     void Respawn()
     {
+        normalCollider.enabled = true;
+        deathCollider.enabled = false;
+        animator.SetBool("Death",false);
         _movement.enabled = true;
         transform.position = respawnPoint.position;
         currentHealth = maxHealth;

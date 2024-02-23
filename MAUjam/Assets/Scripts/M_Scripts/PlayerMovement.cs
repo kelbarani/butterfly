@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private float coyoteTimeCounter;
     private float jumpBufferTime = 0.2f;
     private float jumpBufferCounter;
-    private enum MovementState { idle, jumping,running};
+    private enum MovementState { idle, jumping,running,falling};
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -131,6 +131,12 @@ public class PlayerMovement : MonoBehaviour
             state = MovementState.jumping;
 
         }
+
+        if (rb.velocity.y < -.1f)
+        {
+            state = MovementState.falling;
+        }
+        
         animator.SetInteger("state", (int) state);
     }
 }
