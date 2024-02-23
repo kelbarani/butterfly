@@ -7,20 +7,20 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
-
     private Rigidbody2D rb;
     private Animator animator;
     private bool isGrounded;
-    private bool isFacingRight = true;
+    private bool isFacingRight = false;
     public LayerMask groundLayer;
     private float groundCheckDistance = 0.2f;
     public Transform groundCheck;
-    
+    private float horizontal;
     private bool isJumping;
     private float coyoteTime = 0.2f;
     private float coyoteTimeCounter;
     private float jumpBufferTime = 0.2f;
     private float jumpBufferCounter;
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -63,14 +63,13 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        IsGrounded();
+        isGrounded=IsGrounded();
     }
 
     void HandleInput()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        
-        Vector2 movement = new Vector2(horizontalInput, 0f);
+        horizontal = Input.GetAxis("Horizontal");
+        Vector2 movement = new Vector2(horizontal, 0f);
         rb.velocity = new Vector2(movement.x * moveSpeed, rb.velocity.y);
         
 
@@ -92,10 +91,15 @@ public class PlayerMovement : MonoBehaviour
 
     void Flip()
     {
-        isFacingRight = !isFacingRight;
-        Vector3 localScale = transform.localScale;
-        localScale *= -1f;
-        transform.localScale = localScale;
+        if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+
+
+        }
     }
 
     bool IsGrounded()
