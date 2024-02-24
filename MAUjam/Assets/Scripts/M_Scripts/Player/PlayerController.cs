@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,11 +18,15 @@ public class PlayerController : MonoBehaviour
     private float horizontal;
     private bool isJumping;
     private float coyoteTime = 0.2f;
-    private float coyoteTimeCounter;
+    private float coyoteTimeCounter;             
     private float jumpBufferTime = 0.2f;
     private float jumpBufferCounter;
     private bool isAttacking = false;
     private float animationAccelerator;
+    public bool isFirstPunch = true;
+    public float timer, timeCounter;
+    
+    
     
     private enum MovementState { idle, jumping,running,falling,airKicking};
     void Start()
@@ -71,6 +76,17 @@ public class PlayerController : MonoBehaviour
 
     void HandleInput()
     {
+        if(!isFirstPunch)
+        {
+            timeCounter += Time.deltaTime;
+        }
+
+        // while (timeCounter<=timer)
+        // {
+        //     isFirstPunch = false;
+        // }
+        
+        
         if (isAttacking)
         {
             // If attacking, stop the character from moving
@@ -97,11 +113,37 @@ public class PlayerController : MonoBehaviour
         #region Combat
         if (Input.GetButtonDown("Fire1")&& IsGrounded())
         {
-            // Punch
-            animationAccelerator = 0.6f;
-            StartCoroutine(PerformAttack("Punch"));
+            if (isFirstPunch)
+            {
+                animationAccelerator = 0.6f;
+                isFirstPunch = false;
+                StartCoroutine(PerformAttack("Punch"));
+                
+            } 
+            if(!isFirstPunch )
+            {
+                animationAccelerator = 0.6f; 
+                StartCoroutine(PerformAttack("SecondPunch"));
+            }
             
+
         }
+        
+        // if (Input.GetButtonDown("Fire1")&& IsGrounded())
+        // {
+        //         // First Punch
+        //         animationAccelerator = 0.6f;
+        //         StartCoroutine(PerformAttack("Punch"));
+        //     
+        //         
+        // }
+        // else if (Input.GetButtonDown("Fire1")&& IsGrounded())
+        // {
+        //     // Second Punch
+        //     animationAccelerator = 0.6f;
+        //     StartCoroutine(PerformAttack("SecondPunch"));
+        // }
+        
         else if (Input.GetButtonDown("Fire2")&& IsGrounded())
         {
             // Kick
@@ -117,6 +159,9 @@ public class PlayerController : MonoBehaviour
         #endregion
        
     }
+
+   
+
     IEnumerator PerformAttack(string animationTrigger)
     {
         if (isAttacking)
@@ -128,17 +173,17 @@ public class PlayerController : MonoBehaviour
         isAttacking = true;
         animator.SetBool("IsAttacking",isAttacking);
         
-        //add atack logic (check for hits then deal damage if hits enemy)
-        
-        
         yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length*animationAccelerator);
-        
         //reset state
+        
         isAttacking = false;
         animator.SetBool("IsAttacking",isAttacking);
-
+        // if (animationTrigger == "SecondPunch")
+        // {
+        //     punchCount = 0;
+        // }
     }
-
+    
     
 
     void Flip()
@@ -195,4 +240,5 @@ public class PlayerController : MonoBehaviour
         
         animator.SetInteger("state", (int) state);
     }
+  
 }
