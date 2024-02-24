@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour,IDamageable
+public class EnemyHealth : MonoBehaviour,IDamageable
 {
     [SerializeField] private float maxEnemyHealth=50f;
     private float enemyCurrentHealth;

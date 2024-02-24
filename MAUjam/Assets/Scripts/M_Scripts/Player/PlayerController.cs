@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private float jumpBufferTime = 0.2f;
     private float jumpBufferCounter;
     private bool isAttacking = false;
+    public float animationAccelerator;
     
     private enum MovementState { idle, jumping,running,falling,airKicking};
     void Start()
@@ -97,11 +98,14 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Fire1")&& IsGrounded())
         {
             // Punch
+            animationAccelerator = 0.6f;
             StartCoroutine(PerformAttack("Punch"));
+            
         }
         else if (Input.GetButtonDown("Fire2")&& IsGrounded())
         {
             // Kick
+            animationAccelerator = 0.7f;
             StartCoroutine(PerformAttack("Kick"));
         }
         else if (Input.GetButtonDown("Fire2") && isJumping)
@@ -126,7 +130,7 @@ public class PlayerController : MonoBehaviour
         //add atack logic (check for hits then deal damage if hits enemy)
         
         
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length*0.6f);
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length*animationAccelerator);
         
         //reset state
         isAttacking = false;
