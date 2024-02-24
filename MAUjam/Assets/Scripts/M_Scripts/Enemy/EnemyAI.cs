@@ -56,8 +56,7 @@ public class EnemyAI : MonoBehaviour
                 this.enabled = false;
             }
         }
-
-        ChasePlayer();
+        if(canMove)ChasePlayer(); 
     }
 
     bool IsFacingRight()
@@ -88,28 +87,25 @@ public class EnemyAI : MonoBehaviour
         if (distanceToPlayer <= chaseRange)
         {
             Vector2 targetPos = new Vector2(player.position.x, transform.position.y);
-            //can you add flipping towards a player while chasing here chatgpt
+            
             RaycastHit2D
                 hit = Physics2D.Raycast(transform.position, transform.right, 2.0f,
-                    groundLayer); // Adjust the distance as needed
-
+                    groundLayer); 
             if (hit.collider == null)
             {
-                // No obstacle, continue chasing
+                
                 Flip(targetPos.x - transform.position.x);
                 float chase = patrolSpeed * Time.deltaTime;
                 transform.position = Vector2.MoveTowards(transform.position, targetPos, chase);
             }
             else
             {
-                // Obstacle detected, stop chasing
+                
                 canMove = false;
                 animator.SetBool("isRunning", canMove);
             }
-
-
+            
         }
-
     }
 
     void Flip(float direction)
