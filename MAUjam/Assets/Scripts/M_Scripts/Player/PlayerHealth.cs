@@ -46,6 +46,8 @@ public class PlayerHealth : MonoBehaviour,IDamageable
         {
             return;
         }
+
+        _movement.enabled = false;
         animator.SetBool("takeDamage",true);
         currentHealth -= damageAmount;
         Invoke(nameof(ResetDamage),0.1f);
@@ -61,6 +63,7 @@ public class PlayerHealth : MonoBehaviour,IDamageable
     private void ResetDamageCooldown()
     {
         canTakeDamage = true;
+        _movement.enabled = true;
     }
 
     void Die()

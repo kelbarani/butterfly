@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private float horizontal;
     private bool isJumping;
     private float coyoteTime = 0.2f;
-    private float coyoteTimeCounter;
+    private float coyoteTimeCounter;             
     private float jumpBufferTime = 0.2f;
     private float jumpBufferCounter;
     private bool isAttacking = false;
@@ -95,13 +96,17 @@ public class PlayerController : MonoBehaviour
         }
         #endregion
         #region Combat
+        
+        
         if (Input.GetButtonDown("Fire1")&& IsGrounded())
         {
-            // Punch
+            // First Punch
             animationAccelerator = 0.6f;
             StartCoroutine(PerformAttack("Punch"));
-            
+                
         }
+      
+        
         else if (Input.GetButtonDown("Fire2")&& IsGrounded())
         {
             // Kick
@@ -117,6 +122,9 @@ public class PlayerController : MonoBehaviour
         #endregion
        
     }
+
+   
+
     IEnumerator PerformAttack(string animationTrigger)
     {
         if (isAttacking)
@@ -128,17 +136,17 @@ public class PlayerController : MonoBehaviour
         isAttacking = true;
         animator.SetBool("IsAttacking",isAttacking);
         
-        //add atack logic (check for hits then deal damage if hits enemy)
-        
-        
         yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length*animationAccelerator);
-        
         //reset state
+        
         isAttacking = false;
         animator.SetBool("IsAttacking",isAttacking);
-
+        // if (animationTrigger == "SecondPunch")
+        // {
+        //     punchCount = 0;
+        // }
     }
-
+    
     
 
     void Flip()
@@ -195,4 +203,5 @@ public class PlayerController : MonoBehaviour
         
         animator.SetInteger("state", (int) state);
     }
+  
 }

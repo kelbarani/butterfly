@@ -31,8 +31,7 @@ public class EnemyHealth : MonoBehaviour,IDamageable
     {
         _animator.SetBool("takeDamage",true);
         enemyCurrentHealth -= damageAmount;
-        Invoke(nameof(ResetDamageAnim),0.1f);
-        
+        Invoke(nameof(ResetDamageAnim),0.3f);
         Debug.Log("Current health is:" + enemyCurrentHealth);
     }
 
@@ -44,6 +43,7 @@ public class EnemyHealth : MonoBehaviour,IDamageable
    
     IEnumerator Die()
     {
+        yield return new WaitForSeconds(0.25f);
         normalCollider.enabled = false;
         deathCollider.enabled = true;
         _animator.SetBool("IsDead",true);

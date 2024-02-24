@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
@@ -11,6 +12,7 @@ public class EnemyAI : MonoBehaviour
     private int currentWaypointIndex = 0;
     private Transform player;
     private Animator animator;
+    private bool isAttacking = false;
 
     void Start()
     {
@@ -50,20 +52,28 @@ public class EnemyAI : MonoBehaviour
 
         if (distanceToPlayer < attackRange)
         {
-            // Player is in attack range, initiate attack
-            Attack();
+            StartCoroutine((PerformAttack("Punch")));
         }
         else
         {
-            // Player is not in attack range, continue patrolling
-            animator.SetBool("IsAttacking", false);
+            isAttacking = false;
+            animator.SetBool("IsAttacking", isAttacking);
         }
     }
 
-    void Attack()
+    IEnumerator PerformAttack(string animationTrigger)
     {
-        // Stop patrolling and play attack animation
-        animator.SetBool("IsAttacking", true);
+        if (isAttacking)
+        {
+            yield break;
+        }
+        animator.SetTrigger(animationTrigger);
+        isAttacking = true;
+        animator.SetBool("IsAttacking", isAttacking);
+
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length * 0.6f);
+
+        isAttacking = false;
 
         // Deal damage to the player
         player.GetComponent<IDamageable>().TakeDamage(damageAmount);
