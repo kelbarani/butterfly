@@ -23,10 +23,6 @@ public class PlayerController : MonoBehaviour
     private float jumpBufferCounter;
     private bool isAttacking = false;
     private float animationAccelerator;
-    public bool isFirstPunch = true;
-    public float timer, timeCounter;
-    
-    
     
     private enum MovementState { idle, jumping,running,falling,airKicking};
     void Start()
@@ -76,17 +72,6 @@ public class PlayerController : MonoBehaviour
 
     void HandleInput()
     {
-        if(!isFirstPunch)
-        {
-            timeCounter += Time.deltaTime;
-        }
-
-        // while (timeCounter<=timer)
-        // {
-        //     isFirstPunch = false;
-        // }
-        
-        
         if (isAttacking)
         {
             // If attacking, stop the character from moving
@@ -111,38 +96,16 @@ public class PlayerController : MonoBehaviour
         }
         #endregion
         #region Combat
+        
+        
         if (Input.GetButtonDown("Fire1")&& IsGrounded())
         {
-            if (isFirstPunch)
-            {
-                animationAccelerator = 0.6f;
-                isFirstPunch = false;
-                StartCoroutine(PerformAttack("Punch"));
+            // First Punch
+            animationAccelerator = 0.6f;
+            StartCoroutine(PerformAttack("Punch"));
                 
-            } 
-            if(!isFirstPunch )
-            {
-                animationAccelerator = 0.6f; 
-                StartCoroutine(PerformAttack("SecondPunch"));
-            }
-            
-
         }
-        
-        // if (Input.GetButtonDown("Fire1")&& IsGrounded())
-        // {
-        //         // First Punch
-        //         animationAccelerator = 0.6f;
-        //         StartCoroutine(PerformAttack("Punch"));
-        //     
-        //         
-        // }
-        // else if (Input.GetButtonDown("Fire1")&& IsGrounded())
-        // {
-        //     // Second Punch
-        //     animationAccelerator = 0.6f;
-        //     StartCoroutine(PerformAttack("SecondPunch"));
-        // }
+      
         
         else if (Input.GetButtonDown("Fire2")&& IsGrounded())
         {
