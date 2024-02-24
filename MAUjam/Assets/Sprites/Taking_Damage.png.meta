@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d2622f0e128133d43b62170191ca01c4
+guid: 9814d1ef584dec94abdbf69f9c16ebb8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,85 +110,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Walking_Anim_0
+      name: Taking_Damage_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 0
-        width: 30
-        height: 45
-      alignment: 9
-      pivot: {x: 0.6, y: 0.55}
+        x: 3
+        y: 1
+        width: 40
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e64efa29ec5b3c408a1c8a656b209c5
-      internalID: -468638316
+      spriteID: b11bf47c15c1c58418e4b7635d0aca58
+      internalID: -1310278882
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walking_Anim_1
+      name: Taking_Damage_1
       rect:
         serializedVersion: 2
-        x: 46
-        y: 0
-        width: 35
-        height: 46
-      alignment: 9
-      pivot: {x: 0.6, y: 0.55}
+        x: 47
+        y: 2
+        width: 40
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5f47c15409252344c92e654c0c27c2d0
-      internalID: 409394301
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walking_Anim_2
-      rect:
-        serializedVersion: 2
-        x: 95
-        y: 0
-        width: 30
-        height: 45
-      alignment: 9
-      pivot: {x: 0.6, y: 0.55}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fa10f321964c2d64fa6eb06efebeeec0
-      internalID: 1607489830
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walking_Anim_3
-      rect:
-        serializedVersion: 2
-        x: 140
-        y: 0
-        width: 29
-        height: 46
-      alignment: 9
-      pivot: {x: 0.6, y: 0.55}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 27b87364a278cec4db513195c8252a2e
-      internalID: -1490119115
+      spriteID: 03373ba43ceebec4cba63fffc77f0f29
+      internalID: 2096462803
       vertices: []
       indices: 
       edges: []
@@ -204,10 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Walking_Anim_0: -468638316
-      Walking_Anim_1: 409394301
-      Walking_Anim_2: 1607489830
-      Walking_Anim_3: -1490119115
+      Taking_Damage_0: -1310278882
+      Taking_Damage_1: 2096462803
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

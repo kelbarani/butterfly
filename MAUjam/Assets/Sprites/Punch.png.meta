@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d2622f0e128133d43b62170191ca01c4
+guid: 36bb4e7070916394f803683dc5aa588e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -46,8 +46,8 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  alignment: 9
+  spritePivot: {x: 0, y: 0}
   spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -110,33 +110,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Walking_Anim_0
+      name: Punch_0
       rect:
         serializedVersion: 2
-        x: 2
+        x: 3
         y: 0
-        width: 30
-        height: 45
-      alignment: 9
-      pivot: {x: 0.6, y: 0.55}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0e64efa29ec5b3c408a1c8a656b209c5
-      internalID: -468638316
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walking_Anim_1
-      rect:
-        serializedVersion: 2
-        x: 46
-        y: 0
-        width: 35
+        width: 33
         height: 46
       alignment: 9
       pivot: {x: 0.6, y: 0.55}
@@ -145,19 +124,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5f47c15409252344c92e654c0c27c2d0
-      internalID: 409394301
+      spriteID: b20aa81f495ec914e873164dc6a4a871
+      internalID: -163198767
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walking_Anim_2
+      name: Punch_1
       rect:
         serializedVersion: 2
-        x: 95
-        y: 0
-        width: 30
+        x: 45
+        y: 1
+        width: 68
         height: 45
       alignment: 9
       pivot: {x: 0.6, y: 0.55}
@@ -166,19 +145,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fa10f321964c2d64fa6eb06efebeeec0
-      internalID: 1607489830
+      spriteID: 41c7d12407efcbe499652eebaeec65cb
+      internalID: -1493965517
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walking_Anim_3
+      name: Punch_2
       rect:
         serializedVersion: 2
-        x: 140
-        y: 0
-        width: 29
+        x: 116
+        y: 1
+        width: 55
+        height: 45
+      alignment: 9
+      pivot: {x: 0.6, y: 0.55}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f5255e76625cb14488e7f6fed579b40
+      internalID: -1643688622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Punch_3
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 1
+        width: 45
         height: 46
       alignment: 9
       pivot: {x: 0.6, y: 0.55}
@@ -187,8 +187,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 27b87364a278cec4db513195c8252a2e
-      internalID: -1490119115
+      spriteID: 8e40d01433127494dbea75253423024d
+      internalID: 686423257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Punch_4
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 1
+        width: 45
+        height: 45
+      alignment: 9
+      pivot: {x: 0.6, y: 0.55}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73db73bb303e1ec4aa72a7c07c2b1a7d
+      internalID: 412746973
       vertices: []
       indices: 
       edges: []
@@ -204,10 +225,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Walking_Anim_0: -468638316
-      Walking_Anim_1: 409394301
-      Walking_Anim_2: 1607489830
-      Walking_Anim_3: -1490119115
+      Punch_0: -163198767
+      Punch_1: -1493965517
+      Punch_2: -1643688622
+      Punch_3: 686423257
+      Punch_4: 412746973
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

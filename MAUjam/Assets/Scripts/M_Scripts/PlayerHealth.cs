@@ -8,15 +8,18 @@ public class PlayerHealth : MonoBehaviour,IDamageable
     [SerializeField] private float maxHealth = 100;
     private float currentHealth;
     [SerializeField] Transform respawnPoint;
-    private PlayerMovement _movement;
+    private PlayerController _movement;
     private Animator animator;
     private bool isDead = false;
     [SerializeField] private BoxCollider2D normalCollider;
     [SerializeField] private BoxCollider2D deathCollider;
+    [SerializeField] private float damageCooldown = 1.0f;
+    private bool canTakeDamage = true;
+    
     private void Awake()
     {
         currentHealth = maxHealth;
-        _movement = GetComponent<PlayerMovement>();
+        _movement = GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
         normalCollider.enabled = true;
         deathCollider.enabled = false;
@@ -33,15 +36,31 @@ public class PlayerHealth : MonoBehaviour,IDamageable
         {
             TakeDamage(20);
         }
-
         
     }
 
 
     public void TakeDamage(float damageAmount)
     {
+        if (!canTakeDamage)
+        {
+            return;
+        }
+        animator.SetBool("takeDamage",true);
         currentHealth -= damageAmount;
+        Invoke(nameof(ResetDamage),0.1f);
         Debug.Log("Current health is:" + currentHealth);
+        canTakeDamage = false;
+        Invoke(nameof(ResetDamageCooldown), damageCooldown);
+    }
+
+    private void ResetDamage()
+    {
+        animator.SetBool("takeDamage",false);
+    }
+    private void ResetDamageCooldown()
+    {
+        canTakeDamage = true;
     }
 
     void Die()
@@ -54,8 +73,6 @@ public class PlayerHealth : MonoBehaviour,IDamageable
         _movement.enabled = false;
         Invoke(nameof(Respawn),2f);
         Debug.Log("Dead");
-        
-        
     }
 
     void Respawn()

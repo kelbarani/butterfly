@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
@@ -20,7 +20,9 @@ public class PlayerMovement : MonoBehaviour
     private float coyoteTimeCounter;
     private float jumpBufferTime = 0.2f;
     private float jumpBufferCounter;
-    private enum MovementState { idle, jumping,running,falling};
+    private bool isAttacking = false;
+    
+    private enum MovementState { idle, jumping,running,falling,airKicking};
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -68,11 +70,16 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleInput()
     {
+        if (isAttacking)
+        {
+            // If attacking, stop the character from moving
+            rb.velocity = new Vector2(0f, rb.velocity.y);
+            return;  // Skip further input handling while attacking
+        }
         horizontal = Input.GetAxis("Horizontal");
         Vector2 movement = new Vector2(horizontal, 0f);
         rb.velocity = new Vector2(movement.x * moveSpeed, rb.velocity.y);
         
-
         #region Jumping
         if (coyoteTimeCounter > 0f && jumpBufferCounter > 0f && !isJumping)
         {
@@ -86,8 +93,48 @@ public class PlayerMovement : MonoBehaviour
             coyoteTimeCounter = 0f;
         }
         #endregion
+        #region Combat
+        if (Input.GetButtonDown("Fire1")&& IsGrounded())
+        {
+            // Punch
+            StartCoroutine(PerformAttack("Punch"));
+        }
+        else if (Input.GetButtonDown("Fire2")&& IsGrounded())
+        {
+            // Kick
+            StartCoroutine(PerformAttack("Kick"));
+        }
+        else if (Input.GetButtonDown("Fire2") && isJumping)
+        {
+            // Air Kick
+            StartCoroutine(PerformAttack("AirKick"));
+        }
+        #endregion
        
     }
+    IEnumerator PerformAttack(string animationTrigger)
+    {
+        if (isAttacking)
+        {
+            yield break;
+        }
+        
+        animator.SetTrigger(animationTrigger);
+        isAttacking = true;
+        animator.SetBool("IsAttacking",isAttacking);
+        
+        //add atack logic (check for hits then deal damage if hits enemy)
+        
+        
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length*0.6f);
+        
+        //reset state
+        isAttacking = false;
+        animator.SetBool("IsAttacking",isAttacking);
+
+    }
+
+    
 
     void Flip()
     {
@@ -101,6 +148,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
+    
 
     bool IsGrounded()
     {
@@ -129,7 +177,10 @@ public class PlayerMovement : MonoBehaviour
         if (rb.velocity.y > .1f)
         {
             state = MovementState.jumping;
-
+            if (Input.GetKeyDown(KeyCode.Mouse2))
+            {
+                state = MovementState.airKicking;
+            }
         }
 
         if (rb.velocity.y < -.1f)
