@@ -7,29 +7,50 @@ public class EnemyHealth : MonoBehaviour,IDamageable
 {
     [SerializeField] private float maxEnemyHealth=50f;
     private float enemyCurrentHealth;
-    
+    private Animator _animator;
+    [SerializeField] private BoxCollider2D normalCollider;
+    [SerializeField] private BoxCollider2D deathCollider;
 
     private void Awake()
     {
         enemyCurrentHealth = maxEnemyHealth;
+        _animator = GetComponent<Animator>();
+        normalCollider.enabled = true;
+        deathCollider.enabled = false;
     }
 
     private void Update()
     {
         if (enemyCurrentHealth <= 0)
         {
-            Die();
+            StartCoroutine(Die());
         }
     }
 
     public void TakeDamage(float damageAmount)
     {
+        _animator.SetBool("takeDamage",true);
         enemyCurrentHealth -= damageAmount;
+        Invoke(nameof(ResetDamageAnim),0.1f);
+        
         Debug.Log("Current health is:" + enemyCurrentHealth);
     }
 
-    void Die()
+    void ResetDamageAnim()
     {
-        Destroy(gameObject);
+        _animator.SetBool("takeDamage",false);
     }
+
+   
+    IEnumerator Die()
+    {
+        normalCollider.enabled = false;
+        deathCollider.enabled = true;
+        _animator.SetBool("IsDead",true);
+        //more vfx maybe?
+        yield return new WaitForSeconds(0.6f);
+        Destroy(gameObject);
+        
+    }
+    
 }

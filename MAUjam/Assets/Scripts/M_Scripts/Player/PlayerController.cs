@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     private float jumpBufferTime = 0.2f;
     private float jumpBufferCounter;
     private bool isAttacking = false;
-    public float animationAccelerator;
+    private float animationAccelerator;
     
     private enum MovementState { idle, jumping,running,falling,airKicking};
     void Start()
@@ -111,6 +111,7 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetButtonDown("Fire2") && isJumping)
         {
             // Air Kick
+            animationAccelerator = 0.6f;
             StartCoroutine(PerformAttack("AirKick"));
         }
         #endregion
