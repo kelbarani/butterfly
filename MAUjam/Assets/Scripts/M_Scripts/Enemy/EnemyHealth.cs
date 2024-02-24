@@ -10,6 +10,7 @@ public class EnemyHealth : MonoBehaviour,IDamageable
     private Animator _animator;
     [SerializeField] private BoxCollider2D normalCollider;
     [SerializeField] private BoxCollider2D deathCollider;
+    public bool damageTaken = false;
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class EnemyHealth : MonoBehaviour,IDamageable
 
     public void TakeDamage(float damageAmount)
     {
+        damageTaken = true;
         _animator.SetBool("takeDamage",true);
         enemyCurrentHealth -= damageAmount;
         Invoke(nameof(ResetDamageAnim),0.3f);
@@ -38,6 +40,7 @@ public class EnemyHealth : MonoBehaviour,IDamageable
     void ResetDamageAnim()
     {
         _animator.SetBool("takeDamage",false);
+        damageTaken = false;
     }
 
    
