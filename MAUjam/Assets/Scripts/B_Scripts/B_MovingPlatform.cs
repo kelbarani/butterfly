@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class B_MovingPlatform : MonoBehaviour
 {
-    private float speed;
-    private bool arrived;
+    public float speed;
    [SerializeField] private bool arrived =false;
     public float timer = 2f;
     private float counter;
