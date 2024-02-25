@@ -9,7 +9,7 @@ public class EnemyAI : MonoBehaviour
     private Transform player;
     private Animator animator;
     private bool isAttacking = false;
-    //public float attackCooldown = 2f;
+    public float attackCooldown = 0.2f;
     private Rigidbody2D enemyRb;
     private bool canMove = true;
     private EnemyHealth _enemyHealth;
@@ -25,6 +25,7 @@ public class EnemyAI : MonoBehaviour
         enemyRb = GetComponent<Rigidbody2D>();
         _enemyHealth = GetComponent<EnemyHealth>();
         playerController = player.gameObject.GetComponent<PlayerController>();
+        
     }
     void Update()
     {
@@ -136,7 +137,8 @@ public class EnemyAI : MonoBehaviour
             animator.SetTrigger(animationTrigger);
             isAttacking = true;
             animator.SetBool("IsAttacking", isAttacking);
-            yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length*0.4f);
+            yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length*0.6f);
+            yield return new WaitForSeconds(attackCooldown);
             isAttacking = false;
             animator.SetBool("IsAttacking", isAttacking);
             //yield return new WaitForSeconds(0.1f);
