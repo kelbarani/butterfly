@@ -23,12 +23,15 @@ public class PlayerController : MonoBehaviour
     private float jumpBufferCounter;
     private bool isAttacking = false;
     private float animationAccelerator;
+    private AudioSource audioSource;
+    public AudioClip punchAirSound;
     
     private enum MovementState { idle, jumping,running,falling,airKicking};
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -132,6 +135,7 @@ public class PlayerController : MonoBehaviour
         }
         
         animator.SetTrigger(animationTrigger);
+        audioSource.PlayOneShot(punchAirSound);
         isAttacking = true;
         animator.SetBool("IsAttacking",isAttacking);
         

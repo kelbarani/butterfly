@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour,IDamageable
 {
-    [SerializeField] private float maxEnemyHealth=50f;
+    public float maxEnemyHealth=50f;
     private float enemyCurrentHealth;
     private Animator _animator;
     [SerializeField] private BoxCollider2D normalCollider;

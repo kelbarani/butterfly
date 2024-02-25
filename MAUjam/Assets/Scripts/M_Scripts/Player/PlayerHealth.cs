@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour,IDamageable
 {
-    [SerializeField] private float maxHealth = 100;
+    public float maxHealth = 100;
     private float currentHealth;
     [SerializeField] Transform respawnPoint;
     private PlayerController _movement;
@@ -118,7 +118,6 @@ public class PlayerHealth : MonoBehaviour,IDamageable
         canTakeDamage = true;
         _movement.enabled = true;
     }
-
     void Die()
     {
         isDead = true;
