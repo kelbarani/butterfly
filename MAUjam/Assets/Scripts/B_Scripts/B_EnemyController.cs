@@ -5,9 +5,14 @@ using TMPro;
 
 public class B_EnemyController : MonoBehaviour
 {
+    //CheckPoint için
+    GameObject player;
+    public Transform[] spawnPoints;
+    
+
     public GameObject level1, level2, level3,level4;
     public GameObject townSign;
-    public GameObject platform;
+    public GameObject platform01;
 
     public GameObject king;
     public GameObject villager;
@@ -19,6 +24,10 @@ public class B_EnemyController : MonoBehaviour
     public Sprite villager_Asking;
     public Sprite girl_happy;
 
+    private void Awake()
+    {
+        player = GameObject.Find("Player");
+    }
     void Start()
     {
         level2.SetActive(false);
@@ -33,7 +42,7 @@ public class B_EnemyController : MonoBehaviour
 
     void Update()
     {
-       
+        player.GetComponent<PlayerHealth>().respawnPoint = spawnPoints[0];
 
         if (level1.transform.childCount == 0)
         {
@@ -41,20 +50,23 @@ public class B_EnemyController : MonoBehaviour
             villager.GetComponent<SpriteRenderer>().sprite = villager_Asking;
             villagerAsk_Text.enabled = true;
             girl.SetActive(true);
+            player.GetComponent<PlayerHealth>().respawnPoint = spawnPoints[1];
 
-            
+
             if (level2.transform.childCount == 0)
             {
                 level3.SetActive(true);
-
+                platform01.SetActive(true);
                 girl.GetComponent<SpriteRenderer>().sprite = girl_happy;
                 girlsWarning_Text.enabled = true;
 
                 villager.SetActive(false);
-               
+                player.GetComponent<PlayerHealth>().respawnPoint = spawnPoints[2];
+
                 if (level3.transform.childCount == 0)
                 {
                     level4.SetActive(true);
+                    player.GetComponent<PlayerHealth>().respawnPoint = spawnPoints[3];
                     if (level4.transform.childCount == 0)
                     {
                         Win();

@@ -10,7 +10,7 @@ public class PlayerHealth : MonoBehaviour,IDamageable
 {
     public float maxHealth = 100;
     private float currentHealth;
-    [SerializeField] Transform respawnPoint;
+    public Transform respawnPoint;
     private PlayerController _movement;
     private Animator animator;
     public bool isDead = false;
