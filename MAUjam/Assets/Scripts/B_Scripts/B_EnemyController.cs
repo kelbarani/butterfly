@@ -20,7 +20,7 @@ public class B_EnemyController : MonoBehaviour
         int enemyLvl1Count = CountObjectsWithName("Enemy lvl1");
         int enemyLvl2Count = CountObjectsWithName("Enemy lvl2");
 
-        if (enemyLvl1Count == 0)
+        if (level1.transform.childCount == 0)
         {
             level2.SetActive(true);
 

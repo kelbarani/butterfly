@@ -17,6 +17,8 @@ public class EnemyAI : MonoBehaviour
     private PlayerController playerController;
     public float verticalMovementThreshold=1f;
     private PlayerHealth _playerHealth;
+
+    public bool canPatrol;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -55,13 +57,21 @@ public class EnemyAI : MonoBehaviour
     
     private void Patrol()
     {
-        if (IsFacingRight())
+        if (canPatrol)
         {
-            enemyRb.velocity = new Vector2(patrolSpeed, 0f);
+            if (IsFacingRight())
+            {
+                enemyRb.velocity = new Vector2(patrolSpeed, 0f);
+            }
+            else
+            {
+                enemyRb.velocity = new Vector2(-patrolSpeed, 0f);
+            }
         }
+     
         else
         {
-            enemyRb.velocity = new Vector2(-patrolSpeed, 0f);
+            animator.SetBool("isRunning", canPatrol);
         }
     }
     bool IsFacingRight()
