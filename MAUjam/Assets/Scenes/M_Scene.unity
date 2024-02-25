@@ -247,7 +247,7 @@ Transform:
   m_GameObject: {fileID: 9787320}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.7919, y: -4.01, z: 0}
+  m_LocalPosition: {x: -12.7919, y: 1.23, z: 0}
   m_LocalScale: {x: 30.593067, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -383,11 +383,12 @@ Transform:
   m_GameObject: {fileID: 262571181}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23.07, y: -2.03, z: 0}
+  m_LocalPosition: {x: -9.46, y: 3.19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1470850900}
+  - {fileID: 518455815}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &262571186
@@ -421,11 +422,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolSpeed: 3.5
   chaseRange: 5
-  attackRange: 1.5
+  attackRange: 2
   damageAmount: 10
+  attackCooldown: 1
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  verticalMovementThreshold: 2
 --- !u!95 &262571188
 Animator:
   serializedVersion: 5
@@ -564,6 +567,87 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.47125053, y: 2.0872662}
   m_EdgeRadius: 0
+--- !u!1 &518455814
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 518455815}
+  - component: {fileID: 518455816}
+  - component: {fileID: 518455817}
+  m_Layer: 0
+  m_Name: EnemyPunch
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &518455815
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518455814}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.75, y: -0.19, z: 0}
+  m_LocalScale: {x: 0.83029, y: 0.83029, z: 0.83029}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 262571185}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &518455816
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518455814}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!114 &518455817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518455814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc3b65809af3d814c8c394f2c8d0a1a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPunchDamage: 30
 --- !u!1 &1253116322
 GameObject:
   m_ObjectHideFlags: 0
@@ -842,7 +926,7 @@ Transform:
   m_GameObject: {fileID: 1988800394}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.66, y: -3.1189, z: 0}
+  m_LocalPosition: {x: 14.34, y: -3.1189, z: 0}
   m_LocalScale: {x: 26.347662, y: 2.7579, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
