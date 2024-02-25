@@ -6444,7 +6444,7 @@ GameObject:
   - component: {fileID: 576581080}
   m_Layer: 0
   m_Name: Spikes (9)
-  m_TagString: Spikes
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7746,7 +7746,7 @@ GameObject:
   - component: {fileID: 682849856}
   m_Layer: 0
   m_Name: Spikes (6)
-  m_TagString: Spikes
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12774,7 +12774,7 @@ GameObject:
   - component: {fileID: 1143755276}
   m_Layer: 0
   m_Name: Spikes (1)
-  m_TagString: Spikes
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14471,7 +14471,7 @@ GameObject:
   - component: {fileID: 1262212033}
   m_Layer: 0
   m_Name: Spikes (8)
-  m_TagString: Spikes
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57758,7 +57758,7 @@ GameObject:
   - component: {fileID: 1496965588}
   m_Layer: 0
   m_Name: Spikes (7)
-  m_TagString: Spikes
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59690,7 +59690,7 @@ GameObject:
   - component: {fileID: 1634283039}
   m_Layer: 0
   m_Name: Spikes (3)
-  m_TagString: Spikes
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60276,7 +60276,7 @@ GameObject:
   - component: {fileID: 1652036626}
   m_Layer: 0
   m_Name: Spikes (5)
-  m_TagString: Spikes
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62696,7 +62696,7 @@ GameObject:
   - component: {fileID: 1822264655}
   m_Layer: 0
   m_Name: Spikes
-  m_TagString: Spikes
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63555,7 +63555,7 @@ GameObject:
   - component: {fileID: 1889726549}
   m_Layer: 0
   m_Name: Spikes (2)
-  m_TagString: Spikes
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65324,7 +65324,7 @@ GameObject:
   - component: {fileID: 2009624142}
   m_Layer: 0
   m_Name: Spikes (4)
-  m_TagString: Spikes
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
