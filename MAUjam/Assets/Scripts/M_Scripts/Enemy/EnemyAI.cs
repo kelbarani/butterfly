@@ -137,8 +137,7 @@ public class EnemyAI : MonoBehaviour
             animator.SetTrigger(animationTrigger);
             isAttacking = true;
             animator.SetBool("IsAttacking", isAttacking);
-            yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length*0.6f);
-            yield return new WaitForSeconds(attackCooldown);
+            yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length*0.5f);
             isAttacking = false;
             animator.SetBool("IsAttacking", isAttacking);
             //yield return new WaitForSeconds(0.1f);
