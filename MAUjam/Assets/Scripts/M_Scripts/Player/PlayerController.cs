@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 10f;
     private Rigidbody2D rb;
     private Animator animator;
-    private bool isGrounded;
+    public bool isGrounded;
     private bool isFacingRight = false;
     public LayerMask groundLayer;
     private float groundCheckDistance = 0.2f;

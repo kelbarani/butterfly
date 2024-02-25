@@ -10,21 +10,25 @@ public class EnemyAI : MonoBehaviour
     private Transform player;
     private Animator animator;
     private bool isAttacking = false;
+    public float attackCooldown = 2f;
     private Rigidbody2D enemyRb;
     private bool canMove = true;
     private EnemyHealth _enemyHealth;
     public LayerMask groundLayer;
-
+    private PlayerController playerController;
+    public float verticalMovementThreshold=1f;
+    
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         animator = GetComponent<Animator>();
         enemyRb = GetComponent<Rigidbody2D>();
         _enemyHealth = GetComponent<EnemyHealth>();
+        playerController = player.gameObject.GetComponent<PlayerController>();
     }
-
     void Update()
     {
+        
         if (canMove)
         {
             if (_enemyHealth.damageTaken)
@@ -34,21 +38,12 @@ public class EnemyAI : MonoBehaviour
                 StartCoroutine(ResetMovement());
                 return;
             }
-
-
             if (!_enemyHealth.damageTaken)
             {
-
-                if (IsFacingRight())
-                {
-                    enemyRb.velocity = new Vector2(patrolSpeed, 0f);
-                }
-                else
-                {
-                    enemyRb.velocity = new Vector2(-patrolSpeed, 0f);
-                }
+                canMove = true;
+                animator.SetBool("isRunning", canMove);
+                Patrol();
             }
-
             if (_enemyHealth.isDead)
             {
                 canMove = false;
@@ -56,58 +51,61 @@ public class EnemyAI : MonoBehaviour
                 this.enabled = false;
             }
         }
-        if(canMove)ChasePlayer(); 
+        if(canMove && playerController.isGrounded) ChasePlayer(); 
     }
-
+    private void Patrol()
+    {
+        if (IsFacingRight())
+        {
+            enemyRb.velocity = new Vector2(patrolSpeed, 0f);
+        }
+        else
+        {
+            enemyRb.velocity = new Vector2(-patrolSpeed, 0f);
+        }
+    }
     bool IsFacingRight()
     {
         return transform.localScale.x > Mathf.Epsilon;
     }
-
     private void OnTriggerExit2D(Collider2D other)
     {
         transform.localScale = new Vector2(-Mathf.Sign(enemyRb.velocity.x), transform.localScale.y);
     }
-
     IEnumerator ResetMovement()
     {
         yield return new WaitForSeconds(0.3f);
         canMove = true;
         animator.SetBool("isRunning", canMove);
     }
-
-
     void ChasePlayer()
     {
-        canMove = true;
-        animator.SetBool("isRunning", canMove);
+        // canMove = true;
+        // animator.SetBool("isRunning", canMove);
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-
-
-        if (distanceToPlayer <= chaseRange)
+        if (distanceToPlayer <= attackRange)
         {
-            Vector2 targetPos = new Vector2(player.position.x, transform.position.y);
-            
-            RaycastHit2D
-                hit = Physics2D.Raycast(transform.position, transform.right, 2.0f,
-                    groundLayer); 
-            if (hit.collider == null)
-            {
-                
-                Flip(targetPos.x - transform.position.x);
-                float chase = patrolSpeed * Time.deltaTime;
-                transform.position = Vector2.MoveTowards(transform.position, targetPos, chase);
-            }
-            else
-            {
-                
-                canMove = false;
-                animator.SetBool("isRunning", canMove);
-            }
-            
+            StartCoroutine(PerformAttack("Punch"));
+        }
+        else if (distanceToPlayer <= chaseRange) 
+        {
+            canMove = true;
+            animator.SetBool("isRunning", canMove);
+             Vector2 targetPos = new Vector2(player.position.x,transform.position.y);
+             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 3.0f, groundLayer); 
+             bool playerMovedVertically = Mathf.Abs(player.position.y - transform.position.y) > verticalMovementThreshold;
+             if (hit.collider == null && !playerMovedVertically)
+             {
+                 Flip(targetPos.x - transform.position.x);
+                 float chase = patrolSpeed * Time.deltaTime;
+                 transform.position = Vector2.MoveTowards(transform.position, targetPos, chase);
+             }
+             else
+             {
+                 Patrol();
+             }
         }
     }
-
     void Flip(float direction)
     {
         if (direction > 0)
@@ -119,38 +117,26 @@ public class EnemyAI : MonoBehaviour
             transform.localScale = new Vector2(-1f, 1f); 
         }
     }
-
-
         IEnumerator PerformAttack(string animationTrigger)
         {
             if (isAttacking)
             {
                 yield break;
             }
-
-            animator.SetTrigger(animationTrigger);
+            
             canMove = false;
             animator.SetBool("isRunning", canMove);
+            yield return new WaitForSeconds(0.1f);
+            animator.SetTrigger(animationTrigger);
             isAttacking = true;
             animator.SetBool("IsAttacking", isAttacking);
-
             yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length * 0.6f);
-
             isAttacking = false;
             animator.SetBool("IsAttacking", isAttacking);
             canMove = true;
             animator.SetBool("isRunning", canMove);
-            // Deal damage to the player
-            player.GetComponent<IDamageable>().TakeDamage(damageAmount);
+            
         }
-
-
-
-
-
-
-
-   
 }
 
 
