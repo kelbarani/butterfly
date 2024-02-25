@@ -25,8 +25,8 @@ public class PlayerHealth : MonoBehaviour,IDamageable
     public Image halfHealthHead;
     public Image criticalHealthHead;
     public Image healthBar;
-    
-    
+    public AudioClip appleBite;
+    private AudioSource _audioSource;
     private void Awake()
     {
         currentHealth = maxHealth;
@@ -38,6 +38,7 @@ public class PlayerHealth : MonoBehaviour,IDamageable
         _camShake = _virtualCamera.GetComponent<B_CamShake>();
         halfHealthHead.gameObject.SetActive(false);
         criticalHealthHead.gameObject.SetActive(false);
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -60,20 +61,31 @@ public class PlayerHealth : MonoBehaviour,IDamageable
         {
             ChangeHead(criticalHealthHead);
         }
-
         
-
+        
         if (Input.GetKeyDown(KeyCode.E))
         {
             TakeDamage(20);
         }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Heal(10);
-        }
+        //
+        // if (Input.GetKeyDown(KeyCode.R))
+        // {
+        //     Heal(10);
+        // }
         
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Apple"))
+        {
+            Destroy(collision.gameObject);
+            //apple collect sound.
+            _audioSource.PlayOneShot(appleBite);
+            Heal(40);
+        }
+    }
+    
 
     public void ChangeHead(Image newHeadState)
     {
@@ -121,26 +133,26 @@ public class PlayerHealth : MonoBehaviour,IDamageable
     void Die()
     {
         isDead = true;
-        //play death animation
         normalCollider.enabled = false;
         deathCollider.enabled = true;
         animator.SetBool("Death",true);
         //play death sfx
         _movement.enabled = false;
-        Invoke(nameof(Respawn),1.5f);
+        Invoke(nameof(Respawn),1f);
         Debug.Log("Dead");
     }
 
     void Respawn()
     {
         isDead = false;
-        this.gameObject.SetActive(true);
+        //this.gameObject.SetActive(true);
         normalCollider.enabled = true;
         deathCollider.enabled = false;
         animator.SetBool("Death",false);
         _movement.enabled = true;
         transform.position = respawnPoint.position;
         currentHealth = maxHealth;
+        healthBar.fillAmount = 1.0f;
         Debug.Log("Respawned");
         
     }
@@ -148,6 +160,7 @@ public class PlayerHealth : MonoBehaviour,IDamageable
     public void Heal(float HealAmount)
     {
         currentHealth += HealAmount;
+        Debug.Log(HealAmount+"kadar iyileşildi.");
         currentHealth = Mathf.Clamp(currentHealth, 0, 100);
         healthBar.fillAmount = currentHealth / maxHealth;
         

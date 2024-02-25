@@ -171,6 +171,7 @@ MonoBehaviour:
   patrolSpeed: 3.5
   chaseRange: 6
   attackRange: 2
+  attackCooldown: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
