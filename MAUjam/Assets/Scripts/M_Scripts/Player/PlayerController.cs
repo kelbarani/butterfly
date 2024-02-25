@@ -74,9 +74,8 @@ public class PlayerController : MonoBehaviour
     {
         if (isAttacking)
         {
-            // If attacking, stop the character from moving
             rb.velocity = new Vector2(0f, rb.velocity.y);
-            return;  // Skip further input handling while attacking
+            return;  
         }
         horizontal = Input.GetAxis("Horizontal");
         Vector2 movement = new Vector2(horizontal, 0f);

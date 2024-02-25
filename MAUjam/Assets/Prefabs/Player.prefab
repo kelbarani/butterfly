@@ -424,9 +424,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   respawnPoint: {fileID: 0}
+  isDead: 0
   normalCollider: {fileID: 6713376498091827020}
   deathCollider: {fileID: 214159412400767729}
   damageCooldown: 0.5
+  fullHealthHead: {fileID: 0}
+  halfHealthHead: {fileID: 0}
+  criticalHealthHead: {fileID: 0}
+  healthBar: {fileID: 0}
 --- !u!95 &1008500098319674587
 Animator:
   serializedVersion: 5

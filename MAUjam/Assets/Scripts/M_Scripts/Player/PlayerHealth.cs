@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour,IDamageable
@@ -19,7 +20,10 @@ public class PlayerHealth : MonoBehaviour,IDamageable
     private bool canTakeDamage = true;
     private GameObject _virtualCamera;
     private B_CamShake _camShake;
-
+    private Image currentHeadState;
+    public Image fullHealthHead; 
+    public Image halfHealthHead;
+    public Image criticalHealthHead;
     public Image healthBar;
     
     
@@ -32,7 +36,8 @@ public class PlayerHealth : MonoBehaviour,IDamageable
         deathCollider.enabled = false;
         _virtualCamera = GameObject.FindWithTag("VirtualCamera");
         _camShake = _virtualCamera.GetComponent<B_CamShake>();
-
+        halfHealthHead.gameObject.SetActive(false);
+        criticalHealthHead.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -41,6 +46,22 @@ public class PlayerHealth : MonoBehaviour,IDamageable
         {
             Die();
         }
+
+        if (currentHealth > 66f)
+        {
+            ChangeHead(fullHealthHead);
+            
+        }
+        else if (currentHealth>33f)
+        {
+            ChangeHead(halfHealthHead);
+        }
+        else
+        {
+            ChangeHead(criticalHealthHead);
+        }
+
+        
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -52,6 +73,21 @@ public class PlayerHealth : MonoBehaviour,IDamageable
             Heal(10);
         }
         
+    }
+
+    public void ChangeHead(Image newHeadState)
+    {
+        if(currentHeadState!=newHeadState)
+        {
+            if(currentHeadState!=null)
+            {
+                currentHeadState.gameObject.SetActive(false);
+            }
+            newHeadState.gameObject.SetActive(true);
+            currentHeadState = newHeadState;
+
+        }
+            
     }
 
 
@@ -114,9 +150,7 @@ public class PlayerHealth : MonoBehaviour,IDamageable
     {
         currentHealth += HealAmount;
         currentHealth = Mathf.Clamp(currentHealth, 0, 100);
-
         healthBar.fillAmount = currentHealth / maxHealth;
-
-
+        
     }
 }
