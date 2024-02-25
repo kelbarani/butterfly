@@ -1,59 +1,68 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class B_EnemyController : MonoBehaviour
 {
-    public GameObject level1, level2, level3;
-    public GameObject king;
+    public GameObject level1, level2, level3,level4;
+    public GameObject townSign;
+    public GameObject platform;
 
+    public GameObject king;
+    public GameObject villager;
+    public GameObject girl;
+
+    public TextMeshProUGUI villagerAsk_Text;
+    public TextMeshProUGUI girlsWarning_Text;
     public Sprite happy_King;
+    public Sprite villager_Asking;
+    public Sprite girl_happy;
 
     void Start()
     {
         level2.SetActive(false);
         level3.SetActive(false);
+        level4.SetActive(false);
+
+        girl.SetActive(false);
+
+        villagerAsk_Text.enabled = false;
+        girlsWarning_Text.enabled = false;
     }
 
     void Update()
     {
-        int enemyLvl1Count = CountObjectsWithName("Enemy lvl1");
-        int enemyLvl2Count = CountObjectsWithName("Enemy lvl2");
+       
 
-        if (enemyLvl1Count == 0)
+        if (level1.transform.childCount == 0)
         {
             level2.SetActive(true);
+            villager.GetComponent<SpriteRenderer>().sprite = villager_Asking;
+            villagerAsk_Text.enabled = true;
+            girl.SetActive(true);
 
-            // Check if level 2 has no children
+            
             if (level2.transform.childCount == 0)
             {
                 level3.SetActive(true);
 
-                // Check if level 3 has no children
+                girl.GetComponent<SpriteRenderer>().sprite = girl_happy;
+                girlsWarning_Text.enabled = true;
+
+                villager.SetActive(false);
+               
                 if (level3.transform.childCount == 0)
                 {
-                    Win();
+                    level4.SetActive(true);
+                    if (level4.transform.childCount == 0)
+                    {
+                        Win();
+                    }
                 }
             }
         }
     }
-
-    int CountObjectsWithName(string objectName)
-    {
-        int count = 0;
-
-        // Count the objects with the specified name among the children of this GameObject
-        foreach (Transform child in transform)
-        {
-            if (child.name == objectName)
-            {
-                count++;
-            }
-        }
-
-        return count;
-    }
-
     public void Win()
     {
         king.GetComponent<SpriteRenderer>().sprite = happy_King;
