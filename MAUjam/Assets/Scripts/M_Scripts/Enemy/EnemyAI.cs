@@ -58,19 +58,20 @@ public class EnemyAI : MonoBehaviour
     
     private void Patrol()
     {
-        if (canPatrol)
+         if (canPatrol)
+         {
+              Debug.Log("as");
+        if (IsFacingRight())
         {
-            if (IsFacingRight())
-            {
-                enemyRb.velocity = new Vector2(patrolSpeed, 0f);
-            }
-            else
-            {
-                enemyRb.velocity = new Vector2(-patrolSpeed, 0f);
-            }
+            enemyRb.velocity = new Vector2(patrolSpeed, 0f);
         }
-     
         else
+        {
+            enemyRb.velocity = new Vector2(-patrolSpeed, 0f);
+        }
+         }
+
+         else
         {
             animator.SetBool("isRunning", canPatrol);
         }
