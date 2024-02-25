@@ -6,36 +6,31 @@ public class B_MovingPlatform : MonoBehaviour
 {
     private float speed;
     private bool arrived;
+   [SerializeField] private bool arrived =false;
+    public float timer = 2f;
+    private float counter;
    
     void Update()
     {
+        counter += Time.deltaTime;
 
-        if (!arrived)
-        {
-            transform.position = Vector2.up * speed * Time.deltaTime;     
-        }
-        else
-        {
-            transform.position = Vector2.down * speed * Time.deltaTime;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.name == "PatrolPoint")
+        if (counter >= timer)
         {
             arrived = !arrived;
+            counter = 0;
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
+        if (!arrived)
         {
-            collision.transform.parent = transform;
+           
+            transform.Translate(Vector2.up * speed * Time.deltaTime);
+        }
+        else if(arrived)
+        {
+            transform.Translate(Vector2.up * -speed * Time.deltaTime);
         }
     }
 
+   
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
