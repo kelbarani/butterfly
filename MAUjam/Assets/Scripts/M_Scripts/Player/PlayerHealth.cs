@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour,IDamageable
 {
@@ -10,11 +12,16 @@ public class PlayerHealth : MonoBehaviour,IDamageable
     [SerializeField] Transform respawnPoint;
     private PlayerController _movement;
     private Animator animator;
-    private bool isDead = false;
+    public bool isDead = false;
     [SerializeField] private BoxCollider2D normalCollider;
     [SerializeField] private BoxCollider2D deathCollider;
     [SerializeField] private float damageCooldown = 1.0f;
     private bool canTakeDamage = true;
+    private GameObject _virtualCamera;
+    private B_CamShake _camShake;
+
+    public Image healthBar;
+    
     
     private void Awake()
     {
@@ -23,6 +30,9 @@ public class PlayerHealth : MonoBehaviour,IDamageable
         animator = GetComponent<Animator>();
         normalCollider.enabled = true;
         deathCollider.enabled = false;
+        _virtualCamera = GameObject.FindWithTag("VirtualCamera");
+        _camShake = _virtualCamera.GetComponent<B_CamShake>();
+
     }
 
     private void Update()
@@ -36,6 +46,11 @@ public class PlayerHealth : MonoBehaviour,IDamageable
         {
             TakeDamage(20);
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Heal(10);
+        }
         
     }
 
@@ -46,10 +61,12 @@ public class PlayerHealth : MonoBehaviour,IDamageable
         {
             return;
         }
-
+        
         _movement.enabled = false;
         animator.SetBool("takeDamage",true);
+        _camShake?.CamShake();
         currentHealth -= damageAmount;
+        healthBar.fillAmount = currentHealth / maxHealth;
         Invoke(nameof(ResetDamage),0.1f);
         Debug.Log("Current health is:" + currentHealth);
         canTakeDamage = false;
@@ -68,18 +85,21 @@ public class PlayerHealth : MonoBehaviour,IDamageable
 
     void Die()
     {
+        isDead = true;
         //play death animation
         normalCollider.enabled = false;
         deathCollider.enabled = true;
         animator.SetBool("Death",true);
         //play death sfx
         _movement.enabled = false;
-        Invoke(nameof(Respawn),2f);
+        Invoke(nameof(Respawn),1.5f);
         Debug.Log("Dead");
     }
 
     void Respawn()
     {
+        isDead = false;
+        this.gameObject.SetActive(true);
         normalCollider.enabled = true;
         deathCollider.enabled = false;
         animator.SetBool("Death",false);
@@ -88,5 +108,15 @@ public class PlayerHealth : MonoBehaviour,IDamageable
         currentHealth = maxHealth;
         Debug.Log("Respawned");
         
+    }
+
+    public void Heal(float HealAmount)
+    {
+        currentHealth += HealAmount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, 100);
+
+        healthBar.fillAmount = currentHealth / maxHealth;
+
+
     }
 }

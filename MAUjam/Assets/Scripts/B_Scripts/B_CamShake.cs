@@ -22,7 +22,6 @@ public class B_CamShake : MonoBehaviour
 
     public void CamShake()
     {
-        
         cbmcPerlin.m_AmplitudeGain = shakeIntensity;
         timer = shakeTime;
     }
@@ -35,11 +34,7 @@ public class B_CamShake : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            CamShake();
-        }
-
+        
         if (timer > 0)
         {
             timer -= Time.deltaTime;

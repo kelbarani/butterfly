@@ -6,21 +6,21 @@ public class EnemyAI : MonoBehaviour
     public float patrolSpeed = 2f;
     public float chaseRange = 5f;
     public float attackRange = 1.5f;
-    public int damageAmount = 10;
     private Transform player;
     private Animator animator;
     private bool isAttacking = false;
-    public float attackCooldown = 2f;
+    //public float attackCooldown = 2f;
     private Rigidbody2D enemyRb;
     private bool canMove = true;
     private EnemyHealth _enemyHealth;
     public LayerMask groundLayer;
     private PlayerController playerController;
     public float verticalMovementThreshold=1f;
-    
+    private PlayerHealth _playerHealth;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        _playerHealth = player.GetComponent<PlayerHealth>();
         animator = GetComponent<Animator>();
         enemyRb = GetComponent<Rigidbody2D>();
         _enemyHealth = GetComponent<EnemyHealth>();
@@ -28,7 +28,6 @@ public class EnemyAI : MonoBehaviour
     }
     void Update()
     {
-        
         if (canMove)
         {
             if (_enemyHealth.damageTaken)
@@ -53,6 +52,7 @@ public class EnemyAI : MonoBehaviour
         }
         if(canMove && playerController.isGrounded) ChasePlayer(); 
     }
+    
     private void Patrol()
     {
         if (IsFacingRight())
@@ -78,6 +78,7 @@ public class EnemyAI : MonoBehaviour
         canMove = true;
         animator.SetBool("isRunning", canMove);
     }
+    
     void ChasePlayer()
     {
         // canMove = true;
@@ -85,7 +86,11 @@ public class EnemyAI : MonoBehaviour
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         if (distanceToPlayer <= attackRange)
         {
-            StartCoroutine(PerformAttack("Punch"));
+            if (!_playerHealth.isDead)
+            {
+                StartCoroutine(PerformAttack("Punch"));
+            }
+            
         }
         else if (distanceToPlayer <= chaseRange) 
         {
@@ -126,13 +131,15 @@ public class EnemyAI : MonoBehaviour
             
             canMove = false;
             animator.SetBool("isRunning", canMove);
+            Flip(player.position.x - transform.position.x);
             yield return new WaitForSeconds(0.1f);
             animator.SetTrigger(animationTrigger);
             isAttacking = true;
             animator.SetBool("IsAttacking", isAttacking);
-            yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length * 0.6f);
+            yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length*0.4f);
             isAttacking = false;
             animator.SetBool("IsAttacking", isAttacking);
+            //yield return new WaitForSeconds(0.1f);
             canMove = true;
             animator.SetBool("isRunning", canMove);
             
