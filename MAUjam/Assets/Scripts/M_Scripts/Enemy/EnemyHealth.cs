@@ -12,6 +12,8 @@ public class EnemyHealth : MonoBehaviour,IDamageable
     [SerializeField] private BoxCollider2D deathCollider;
     public bool damageTaken = false;
     public bool isDead = false;
+    private GameObject _virtualCamera;
+    private B_CamShake _camShake;
 
     private void Awake()
     {
@@ -19,6 +21,8 @@ public class EnemyHealth : MonoBehaviour,IDamageable
         _animator = GetComponent<Animator>();
         normalCollider.enabled = true;
         deathCollider.enabled = false;
+        _virtualCamera = GameObject.FindWithTag("VirtualCamera");
+        _camShake = _virtualCamera.GetComponent<B_CamShake>();
     }
 
     private void Update()
@@ -33,6 +37,7 @@ public class EnemyHealth : MonoBehaviour,IDamageable
     {
         damageTaken = true;
         _animator.SetBool("takeDamage",true);
+        _camShake?.CamShake();
         enemyCurrentHealth -= damageAmount;
         Invoke(nameof(ResetDamageAnim),0.3f);
         Debug.Log("Current health is:" + enemyCurrentHealth);

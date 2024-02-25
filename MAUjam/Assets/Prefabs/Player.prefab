@@ -81,6 +81,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   airKickDamage: 30
+--- !u!1 &3235355236335807280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2267674229613311332}
+  m_Layer: 7
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2267674229613311332
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3235355236335807280}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2069858344136034927}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3403591232809623993
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +154,7 @@ GameObject:
   - component: {fileID: 3379137237802387644}
   - component: {fileID: 816181095788725637}
   - component: {fileID: 6401914668025289911}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Punch Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,6 +264,7 @@ Transform:
   - {fileID: 3379137237802387644}
   - {fileID: 1553432151817135981}
   - {fileID: 2303675942972639263}
+  - {fileID: 2267674229613311332}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7411856048102052841
@@ -273,8 +305,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1592962763
+  m_SortingLayer: 2
   m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: cdaa78dfc587cc546aa3caab2d4bb118, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -303,7 +335,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 3.5
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 4fbb5519110e7c940a3b1f2b07dd6985, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -373,6 +405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   jumpForce: 18
+  isGrounded: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -391,9 +424,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   respawnPoint: {fileID: 0}
+  isDead: 0
   normalCollider: {fileID: 6713376498091827020}
   deathCollider: {fileID: 214159412400767729}
   damageCooldown: 0.5
+  fullHealthHead: {fileID: 0}
+  halfHealthHead: {fileID: 0}
+  criticalHealthHead: {fileID: 0}
+  healthBar: {fileID: 0}
 --- !u!95 &1008500098319674587
 Animator:
   serializedVersion: 5
@@ -471,7 +509,7 @@ GameObject:
   - component: {fileID: 1553432151817135981}
   - component: {fileID: 3957286009085693268}
   - component: {fileID: 9003606329418181884}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: KickCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

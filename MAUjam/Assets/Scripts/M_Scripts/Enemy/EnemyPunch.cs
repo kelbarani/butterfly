@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EnemyPunch : MonoBehaviour
 {
-    private CircleCollider2D enemPunchCollider;
+    private CircleCollider2D enemyPunchCollider;
     [SerializeField] private float enemyPunchDamage;
     
     private void Awake()
     {
-        enemPunchCollider = GetComponent<CircleCollider2D>();
+        enemyPunchCollider = GetComponent<CircleCollider2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

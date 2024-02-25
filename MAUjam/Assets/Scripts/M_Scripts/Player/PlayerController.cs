@@ -74,9 +74,8 @@ public class PlayerController : MonoBehaviour
     {
         if (isAttacking)
         {
-            // If attacking, stop the character from moving
             rb.velocity = new Vector2(0f, rb.velocity.y);
-            return;  // Skip further input handling while attacking
+            return;  
         }
         horizontal = Input.GetAxis("Horizontal");
         Vector2 movement = new Vector2(horizontal, 0f);
@@ -101,7 +100,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Fire1")&& IsGrounded())
         {
             // First Punch
-            animationAccelerator = 0.6f;
+            animationAccelerator = 0.4f;
             StartCoroutine(PerformAttack("Punch"));
                 
         }
@@ -110,7 +109,7 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetButtonDown("Fire2")&& IsGrounded())
         {
             // Kick
-            animationAccelerator = 0.7f;
+            animationAccelerator = 0.5f;
             StartCoroutine(PerformAttack("Kick"));
         }
         else if (Input.GetButtonDown("Fire2") && isJumping)
