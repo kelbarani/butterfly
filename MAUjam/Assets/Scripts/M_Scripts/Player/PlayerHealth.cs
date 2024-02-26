@@ -81,7 +81,7 @@ public class PlayerHealth : MonoBehaviour,IDamageable
         {
             Destroy(collision.gameObject);
             //apple collect sound.
-            _audioSource.PlayOneShot(appleBite);
+            _audioSource.PlayOneShot(appleBite );
             Heal(40);
         }
     }
