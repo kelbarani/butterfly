@@ -63,15 +63,7 @@ public class PlayerHealth : MonoBehaviour,IDamageable
         }
         
         
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            TakeDamage(20);
-        }
-        //
-        // if (Input.GetKeyDown(KeyCode.R))
-        // {
-        //     Heal(10);
-        // }
+      
         
     }
 

@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()

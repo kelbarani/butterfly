@@ -20,6 +20,7 @@ public class B_EnemyController : MonoBehaviour
 
     public TextMeshProUGUI villagerAsk_Text;
     public TextMeshProUGUI girlsWarning_Text;
+    public TextMeshProUGUI tobecon;
     public Sprite happy_King;
     public Sprite villager_Asking;
     public Sprite girl_happy;
@@ -69,14 +70,20 @@ public class B_EnemyController : MonoBehaviour
                     player.GetComponent<PlayerHealth>().respawnPoint = spawnPoints[3];
                     if (level4.transform.childCount == 0)
                     {
-                        Win();
+                        StartCoroutine(Win());
                     }
                 }
             }
         }
     }
-    public void Win()
+   
+
+    IEnumerator Win()
     {
         king.GetComponent<SpriteRenderer>().sprite = happy_King;
+        tobecon.enabled = true;
+        yield return new WaitForSeconds(4f);
+        Application.Quit();
+
     }
 }
