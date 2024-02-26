@@ -7,7 +7,7 @@ public class B_lastBarrier : MonoBehaviour
     public GameObject barrier;
     void Start()
     {
-        
+        barrier.SetActive(false);
     }
 
     // Update is called once per frame
@@ -20,7 +20,7 @@ public class B_lastBarrier : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            barrier.GetComponent<BoxCollider2D>().isTrigger = false;
+            barrier.SetActive(true);
         }
     }
 }
