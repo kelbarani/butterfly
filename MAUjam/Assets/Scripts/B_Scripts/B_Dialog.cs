@@ -61,7 +61,7 @@ public class B_Dialog : MonoBehaviour
 
     IEnumerator NextLine()
     {
-        if (index <= lines.Length - 1)
+        if (index < lines.Length - 1)
         {
             index++;
             
@@ -75,11 +75,11 @@ public class B_Dialog : MonoBehaviour
         }
     }
 
-    public void Answer(int yes)
+    public void Answer(int answer)
     {
         counter = timer - 0.2f;
 
-        index +=yes;
+        index = answer;
         isSpeaking = true;
         Buttons.SetActive(false);
        
