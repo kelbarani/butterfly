@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class B_Dialog : MonoBehaviour
 {
@@ -77,11 +78,12 @@ public class B_Dialog : MonoBehaviour
 
     public void Answer(int answer)
     {
-        counter = timer - 0.2f;
-
+        
         index = answer;
-        isSpeaking = true;
+        counter = timer;
+        
         Buttons.SetActive(false);
+      
        
     }
 

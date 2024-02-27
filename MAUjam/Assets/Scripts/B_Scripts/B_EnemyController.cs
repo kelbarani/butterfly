@@ -8,22 +8,33 @@ public class B_EnemyController : MonoBehaviour
     //CheckPoint için
     GameObject player;
     public Transform[] spawnPoints;
-    
 
-    public GameObject level1, level2, level3,level4;
-    public GameObject townSign;
+    [Header("Leveller")]
+    public GameObject level1;
+    public GameObject level2;
+    public GameObject level3;
+    public GameObject level4;
+
+    [Header("Objects")]
     public GameObject platform01;
+    public GameObject platform02;
 
+    [Header("Characters")]
     public GameObject king;
     public GameObject villager;
     public GameObject girl;
 
-    public TextMeshProUGUI villagerAsk_Text;
-    public TextMeshProUGUI girlsWarning_Text;
-    public TextMeshProUGUI tobecon;
     public Sprite happy_King;
     public Sprite villager_Asking;
     public Sprite girl_happy;
+
+    [Header("Texts")]
+    public GameObject villagers_Dialog;
+    public GameObject girls_Dialog;
+    public GameObject kings_Dialog;
+
+    public TextMeshProUGUI tobecon;
+   
 
     private void Awake()
     {
@@ -37,8 +48,8 @@ public class B_EnemyController : MonoBehaviour
 
         girl.SetActive(false);
 
-        villagerAsk_Text.enabled = false;
-        girlsWarning_Text.enabled = false;
+        villagers_Dialog.SetActive(false);
+        girls_Dialog.SetActive(false);
     }
 
     void Update()
@@ -49,7 +60,7 @@ public class B_EnemyController : MonoBehaviour
         {
             level2.SetActive(true);
             villager.GetComponent<SpriteRenderer>().sprite = villager_Asking;
-            villagerAsk_Text.enabled = true;
+            villagers_Dialog.SetActive(true);
             girl.SetActive(true);
             player.GetComponent<PlayerHealth>().respawnPoint = spawnPoints[1];
 
@@ -59,13 +70,14 @@ public class B_EnemyController : MonoBehaviour
                 level3.SetActive(true);
                 platform01.SetActive(true);
                 girl.GetComponent<SpriteRenderer>().sprite = girl_happy;
-                girlsWarning_Text.enabled = true;
+                girls_Dialog.SetActive(true);
 
                 villager.SetActive(false);
                 player.GetComponent<PlayerHealth>().respawnPoint = spawnPoints[2];
 
                 if (level3.transform.childCount == 0)
                 {
+                    platform02.SetActive(true);
                     level4.SetActive(true);
                     player.GetComponent<PlayerHealth>().respawnPoint = spawnPoints[3];
                     if (level4.transform.childCount == 0)
