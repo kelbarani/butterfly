@@ -15,7 +15,7 @@ public class ComboCharacter : MonoBehaviour
    
    void Update()
    {
-      if (Input.GetMouseButton(0) && meleeStateMachine.CurrentState.GetType() == typeof(IdleCombatState))
+      if (Input.GetMouseButtonDown(0) && meleeStateMachine.CurrentState.GetType() == typeof(IdleCombatState))
       {
          meleeStateMachine.SetNextState(new GroundEntryState());
       }
