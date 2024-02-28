@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System;
-
+using UnityEngine.WSA;
 public class B_Dialog : MonoBehaviour
 {
     public TextMeshProUGUI textComp;
@@ -49,6 +47,7 @@ public class B_Dialog : MonoBehaviour
     void StartDialog()
     {
         index = 0;
+        counter = timer - 0.1f;
     }
 
     IEnumerator TypeLine()
@@ -81,11 +80,18 @@ public class B_Dialog : MonoBehaviour
         
         index = answer;
         counter = timer;
-        
         Buttons.SetActive(false);
-      
-       
+         
     }
 
+     public  void gettingAngry()
+    {
+        Debug.Log("KIZDI");
+        transform.localScale = new Vector3(transform.localScale.x * 2, transform.localScale.y * 2, transform.localScale.z);
+
+        /*
+        GetComponent<EnemyAI>().enabled = true;                 Animasyonlarý olmadýðý için olmuyor 
+        GetComponent<EnemyHealth>().enabled = true;*/ 
+    }
   
 }
