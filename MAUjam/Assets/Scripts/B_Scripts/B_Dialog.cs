@@ -89,9 +89,9 @@ public class B_Dialog : MonoBehaviour
         Debug.Log("KIZDI");
         transform.localScale = new Vector3(transform.localScale.x * 2, transform.localScale.y * 2, transform.localScale.z);
 
-        /*
-        GetComponent<EnemyAI>().enabled = true;                 Animasyonlarý olmadýðý için olmuyor 
-        GetComponent<EnemyHealth>().enabled = true;*/ 
+        
+        GetComponent<EnemyAI>().enabled = true;                 
+        GetComponent<EnemyHealth>().enabled = true;
     }
   
 }

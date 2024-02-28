@@ -5,7 +5,7 @@ using TMPro;
 
 public class B_EnemyController : MonoBehaviour
 {
-    //CheckPoint için
+    //CheckPoint iï¿½in
     GameObject player;
     public Transform[] spawnPoints;
 
@@ -61,7 +61,7 @@ public class B_EnemyController : MonoBehaviour
             level2.SetActive(true);
             villager.GetComponent<SpriteRenderer>().sprite = villager_Asking;
             villagers_Dialog.SetActive(true);
-            girl.SetActive(true);
+            if(girl!=null)girl.SetActive(true);
             player.GetComponent<PlayerHealth>().respawnPoint = spawnPoints[1];
 
 
@@ -69,7 +69,7 @@ public class B_EnemyController : MonoBehaviour
             {
                 level3.SetActive(true);
                 platform01.SetActive(true);
-                girl.GetComponent<SpriteRenderer>().sprite = girl_happy;
+                if(girl!=null)girl.GetComponent<SpriteRenderer>().sprite = girl_happy;
                 girls_Dialog.SetActive(true);
 
                 villager.SetActive(false);
